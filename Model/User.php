@@ -7,6 +7,11 @@ App::uses('AuthComponent', 'Component');
  * @property Group $Group
  */
 class User extends AppModel {
+    
+    public $actsAs = array('Acl' => array('type' => 'requester')
+        
+    );
+    
 /**
  * Validation rules
  *
@@ -84,4 +89,30 @@ class User extends AppModel {
             }
             
         }
+        
+        public function parentNode() {
+            if (!$this->id && empty($this->data)) {
+                    return null;
+            }
+            
+            if (isset($this->data['User']['group_id'])) {
+                $groupID = $this->data['User']['group_id'];
+            } else {
+                $groupID = $this->field('group_id');
+            }
+            
+            if (!$groupID){
+                return null;
+            } else {
+                return array('Group' => array('id' => $groupID));
+            }
+        }
+        
+        public function bindNode ($user) {
+            return array(
+                'model' => 'Group',
+                'foreign_key' => $user['User']['group_id']
+            );
+        }
+        
 }

@@ -7,12 +7,33 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 
+        public function beforeFilter() {
+            
+            //Quando a tabela aros_acos estiver vazia descomentar a linha abaixo
+            // @TODO: Comentar quando o sistema estiver em produção
+            $this->Auth->allow('regrasACL');
+            
+            //Libera acesso a action login para todos os usuarios, até mesmo nao logados
+             $this->Auth->allow(array('login', 'logout')); //pode ser uma array
+             
+             return parent::beforeFilter();
+        }
+    
+    
+    
         public function login() {
+            
+            if ($this->Session->read('Auth.User')) {
+                $this->Session->setFlash('Você já está logado!');
+                $this->redirect('/', null, false);
+                }
+            
+            
             if ($this->request->is('post')) {
                 if ($this->Auth->login()) {
                     $this->redirect($this->Auth->redirect());
                 } else {
-                    $this->Session->setFlash('Dados incorretos');
+                    $this->Session->setFlash('Login/Senha não conferem!');
                 }
             }
         }
@@ -21,6 +42,7 @@ class UsersController extends AppController {
         
         
         public function logout(){
+            $this->Session->setFlash('Você fez logout no sistema');
             $this->redirect($this->Auth->logout());
         }
 /**
@@ -112,4 +134,28 @@ class UsersController extends AppController {
 		$this->Session->setFlash(__('User was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+        
+        
+        //Executar essa action sempre que novas regras forem criadas abaixo
+        // em seguida rodar no console o comando cake AclExtras.AclExtras aco_update
+        // caso tenha criado/editado/excluido um nome de action
+        
+        public function regrasACL() {
+            $group = $this->User->Group;
+            
+            // O número 1 é o id do grupo de Administradores
+            $group->id = 1;
+            $this->Acl->allow($group, 'controllers');
+            
+            // O número 2 é o id do grupo de Moderadores
+            $group->id = 2;
+            $this->Acl->deny($group, 'controllers');
+            $this->Acl->allow($group, 'controllers/Posts/add');
+            $this->Acl->allow($group, 'controllers/Posts/index');
+            //$this->Acl->allow($group, 'controllers/Posts/edit');
+            
+            echo 'atualizando ACL';
+      
+            
+        }
 }

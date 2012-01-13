@@ -13,7 +13,17 @@ class AppController extends Controller {
         'Session'
     );
     
+    public $helpers = array('Html', 'Form', 'Session');
+    
     public function beforeFilter() {
-        $this->Auth->allow('*');
+        // Temporariamente para permitir a criação de usuário sem logar
+        //$this->Auth->allow('*');
+        
+        $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
+        $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');
+        
+        $this->Auth->allow('display');
+       
+        
     }
 }
