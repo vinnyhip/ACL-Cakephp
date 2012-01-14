@@ -14,7 +14,7 @@ class UsersController extends AppController {
             $this->Auth->allow('regrasACL');
             
             //Libera acesso a action login para todos os usuarios, até mesmo nao logados
-             $this->Auth->allow(array('login', 'logout')); //pode ser uma array
+             $this->Auth->allow(array('login', 'logout', 'view')); //pode ser uma array
              
              return parent::beforeFilter();
         }
@@ -141,6 +141,7 @@ class UsersController extends AppController {
         // caso tenha criado/editado/excluido um nome de action
         
         public function regrasACL() {
+            // 
             $group = $this->User->Group;
             
             // O número 1 é o id do grupo de Administradores
@@ -154,8 +155,8 @@ class UsersController extends AppController {
             $this->Acl->allow($group, 'controllers/Posts/index');
             //$this->Acl->allow($group, 'controllers/Posts/edit');
             
-            echo 'atualizando ACL';
-      
-            
+            echo 'Essa function não remove as actions que não existem mais';
+            echo '<br> É recomendável limpar a tabela aros_acos antes';
+       
         }
 }

@@ -51,7 +51,7 @@ class User extends AppModel {
 		'password' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
+				'message' => 'A senha não pode ficar em branco',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -78,11 +78,13 @@ class User extends AppModel {
 	);
         
         public function beforeSave() {
+            // Se o campo password não estiver vazio
             if (!empty($this->data['User']['password'])) { 
-            
+                //Armazena o password na variável $password
                 $password = $this->data['User']['password'];
+                //Aplica o hash na váriável $password
                 $password = AuthComponent::password($password);
-
+                //Seta o password hasheado para ser salvo no banco
                 $this->data['User']['password'] = $password;
 
                 return parent::beforeSave();
