@@ -101,10 +101,10 @@ class UsersController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->User->save($this->request->data)) {
-				$this->Session->setFlash(__('The user has been saved'));
+				$this->Session->setFlash(__('Usuário editado com sucesso!'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('Não foi possível editar o usuário. Por favor, tente novamente.'));
 			}
 		} else {
 			$this->request->data = $this->User->read(null, $id);
@@ -136,9 +136,51 @@ class UsersController extends AppController {
 	}
         
         
+/**
+ * edit method
+ *
+ * @param string $id
+ * @return void
+ */
+	public function mudarMinhaSenha() {
+		$id = AuthComponent::user('id');
+                $this->User->id = $id;
+		if (!$this->User->exists()) {
+			throw new NotFoundException(__('Invalid user'));
+		}
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if ($this->User->save($this->request->data)) {
+				$this->Session->setFlash(__('Usuário editado com sucesso!'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('Não foi possível editar o usuário. Por favor, tente novamente.'));
+			}
+		} else {
+			$this->request->data = $this->User->read(null, $id);
+		}
+		$groups = $this->User->Group->find('list');
+		$this->set(compact('groups'));
+	}
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         //Executar essa action sempre que novas regras forem criadas abaixo
         // em seguida rodar no console o comando cake AclExtras.AclExtras aco_update
         // caso tenha criado/editado/excluido um nome de action
+        
+        /**
+         *  método regrasACL
+         * 
+         * @return void
+         */
         
         public function regrasACL() {
             // 
@@ -151,12 +193,13 @@ class UsersController extends AppController {
             // O número 2 é o id do grupo de Moderadores
             $group->id = 2;
             $this->Acl->deny($group, 'controllers');
+            $this->Acl->allow($group, 'controllers/Users/mudarMinhaSenha');
             $this->Acl->allow($group, 'controllers/Posts/add');
             $this->Acl->allow($group, 'controllers/Posts/index');
             //$this->Acl->allow($group, 'controllers/Posts/edit');
             
             echo 'Essa function não remove as actions que não existem mais';
             echo '<br> É recomendável limpar a tabela aros_acos antes';
-       
+            exit;
         }
 }

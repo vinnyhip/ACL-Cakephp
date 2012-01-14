@@ -7,9 +7,8 @@
 		echo $this->Form->input('group_id');
 		echo $this->Form->input('name');
 		echo $this->Form->input('username');
-                debug($this->request->data);
 //		echo $this->Form->input('password');
-//                echo $this->Form->input('User.tassword', array('type' => 'password', 'value' => NULL, 'label' =>'Password'));
+                echo $this->Form->input('User.password', array('type' => 'password', 'value' => '', 'label' =>'Nova Senha'));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

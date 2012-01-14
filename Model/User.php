@@ -52,10 +52,10 @@ class User extends AppModel {
 			'notempty' => array(
 				'rule' => array('notempty'),
 				'message' => 'A senha não pode ficar em branco',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'allowEmpty' => false,
+				'required' => false,
+				'last' => false, // Stop validation after this rule
+				'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 	);
@@ -87,9 +87,12 @@ class User extends AppModel {
                 //Seta o password hasheado para ser salvo no banco
                 $this->data['User']['password'] = $password;
 
-                return parent::beforeSave();
+                
+            } else {
+                unset($this->data['User']['password']);
             }
             
+            return parent::beforeSave();
         }
         
         public function parentNode() {
