@@ -39,8 +39,7 @@ class UsersController extends AppController {
         }
 
         
-        
-        
+            
         public function logout(){
             $this->Session->setFlash('Você fez logout no sistema');
             $this->redirect($this->Auth->logout());
@@ -94,7 +93,8 @@ class UsersController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+        //@TODO: Adicionar manipulação do campo active
+        public function edit($id = null) {
 		$this->User->id = $id;
 		if (!$this->User->exists()) {
 			throw new NotFoundException(__('Invalid user'));
@@ -119,7 +119,8 @@ class UsersController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	//@TODO: Analisar a possibilidade de eliminar esse método
+        public function delete($id = null) {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
 		}
@@ -135,13 +136,14 @@ class UsersController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
         
-        
 /**
- * edit method
- *
+ * mudarMinhaSenha method
+ * Permite o próprio usuário mudar sua senha
  * @param string $id
  * @return void
  */
+        //@TODO: Adicionar confirmação da tenha atual
+        //@TODO: Adicionar campo repetir senha
 	public function mudarMinhaSenha() {
 		$id = AuthComponent::user('id');
                 $this->User->id = $id;
@@ -178,7 +180,8 @@ class UsersController extends AppController {
         
         /**
          *  método regrasACL
-         * 
+         *  Método que deve ser executado sempre que novos métodos/grupos/usuários
+         *  forem adicionados ao sistema.
          * @return void
          */
         
