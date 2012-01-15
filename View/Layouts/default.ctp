@@ -39,7 +39,8 @@ $cakeDescription = __d('cake_dev', 'CakePHP 2.0: the rapid development php frame
 		<div id="header">
 			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
                        
-                </div>           
+                        </div>        
+                        <?php //@TODO: transformar esse trecho de código em um element ?>
                         <div id="logout" style =" background-color: red"> 
                         <?php 
                         if (AuthComponent::user('name')) {
