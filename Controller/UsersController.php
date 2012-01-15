@@ -197,12 +197,13 @@ class UsersController extends AppController {
             $group->id = 2;
             $this->Acl->deny($group, 'controllers');
             $this->Acl->allow($group, 'controllers/Users/mudarMinhaSenha');
-            $this->Acl->allow($group, 'controllers/Posts/add');
-            $this->Acl->allow($group, 'controllers/Posts/index');
+
             //$this->Acl->allow($group, 'controllers/Posts/edit');
             
             echo 'Essa function não remove as actions que não existem mais';
             echo '<br> É recomendável limpar a tabela aros_acos antes';
+            echo '<br> usar o comando cake AclExtras.AclExtras aco_sync no console
+                para remover/adicionar as novas actions criadas';
             exit;
         }
 }
