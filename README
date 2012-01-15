@@ -1,1 +1,18 @@
 Projeto de teste do ACL do CakePHP 2.0
+
+A configuração atual leva em consideração que o core do cakephp está no mesmo nível
+da pasta app e o webroot encontra-se dentro do diretório app. Para alterar essa configuração
+edite o arquivo index.php que está dentro do diretório webroot.
+
+É preciso fazer o download do core do cakephp 2.0
+
+Usar o bake para gerar um arquivo de configuração do banco de dados
+Alterar o salt do core.php na pasta config
+
+Habilitar os plugins no core.php
+
+Usuário admin senha admin
+
+Versão do CakePHP 2.0.5
+Incluso DebugKit
+Incluso acl_extras
