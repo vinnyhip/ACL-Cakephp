@@ -47,6 +47,11 @@ class User extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+                    
+                        'unico' => array(
+                                'rule' => array('isUnique'),
+                                'message' => 'Esse nome de usuário já existe. Escolha outro.',
+                        ),
 		),
 		'password' => array(
 			'notempty' => array(

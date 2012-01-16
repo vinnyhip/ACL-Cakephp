@@ -93,7 +93,7 @@ class UsersController extends AppController {
  * @param string $id
  * @return void
  */
-        //@TODO: Adicionar manipulação do campo active
+       
         public function edit($id = null) {
 		$this->User->id = $id;
 		if (!$this->User->exists()) {
@@ -189,11 +189,11 @@ class UsersController extends AppController {
             // 
             $group = $this->User->Group;
             
-            // O número 1 é o id do grupo de Administradores
+            // O número 1 é o id do grupo de Administradores do sistema
             $group->id = 1;
             $this->Acl->allow($group, 'controllers');
             
-            // O número 2 é o id do grupo de Moderadores
+            // O número 2 é o id do grupo de Diretors
             $group->id = 2;
             $this->Acl->deny($group, 'controllers');
             $this->Acl->allow($group, 'controllers/Users/mudarMinhaSenha');
