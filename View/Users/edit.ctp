@@ -7,10 +7,14 @@
 		echo $this->Form->input('group_id');
 		echo $this->Form->input('name');
 		echo $this->Form->input('username');
-                //Deixa o campo password com o valor em branco durante a edição
-                //para evitar a alteraçao da senha de forma intencional
-		echo $this->Form->input('password', array('type' => 'password', 'value' => '', 'label' =>'Password'));
-		echo $this->Form->input('active');
+		echo $this->Form->input('password', array(
+                                                        'type' => 'password', 
+                                                        'value' => '', 
+                                                        'label' =>'Password'));
+		echo $this->Form->input('checkPassword', array(
+                                                            'label' => 'Repita o password', 
+                                                            'type' => 'password'));
+                echo $this->Form->input('active');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

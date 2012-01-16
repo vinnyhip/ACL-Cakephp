@@ -143,7 +143,6 @@ class UsersController extends AppController {
  * @return void
  */
         //@TODO: Adicionar confirmação da tenha atual
-        //@TODO: Adicionar campo repetir senha
 	public function mudarMinhaSenha() {
 		$id = AuthComponent::user('id');
                 $this->User->id = $id;

@@ -63,8 +63,30 @@ class User extends AppModel {
 				'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+                'checkPassword' => array(
+                        'passwordBate' => array(
+                                'rule' => array('checaSeCampoIgual', 'password'),
+                                'message' => 'O password digitado não confere'
+                                
+                        ),
+                 ),
 	);
 
+        /**
+         *
+         * @param array $data  array com o nome do campo e o valor digitado no  
+         * campo a ser comparado com o campo referência
+         * @param string $fild Nome do campo referẽncia
+         * @TODO: mover esse método para AppModel e tornar-lo universal
+         */
+       
+        public function checaSeCampoIgual($data, $fieldname) {
+            if (array_shift($data) === $this->data[$this->alias][$fieldname])
+                return true;
+           
+        }
+        
+        
 	//The Associations below have been created with all possible keys, those that are not 
         //needed can be removed
 
@@ -100,6 +122,7 @@ class User extends AppModel {
             
             return parent::beforeSave();
         }
+        
         
         public function parentNode() {
             if (!$this->id && empty($this->data)) {

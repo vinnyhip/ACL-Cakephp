@@ -7,6 +7,9 @@
 		echo $this->Form->input('name');
 		echo $this->Form->input('username');
 		echo $this->Form->input('password');
+                echo $this->Form->input('checkPassword', array(
+                                                            'label' => 'Repita o password', 
+                                                            'type' => 'password'));
 		echo $this->Form->input('active');
 	?>
 	</fieldset>

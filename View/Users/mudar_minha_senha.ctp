@@ -4,11 +4,17 @@
 		<legend><?php echo __('Alteração da minha senha de acesso'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('group_id', array('disabled' => true));
-		echo $this->Form->input('name', array('disabled' => true));
-		echo $this->Form->input('username', array('disabled' => true));
-//		echo $this->Form->input('password');
-                echo $this->Form->input('User.password', array('type' => 'password', 'value' => '', 'label' =>'Nova Senha'));
+		echo $this->Form->input('group_id', array('type' => 'hidden'));
+		echo $this->Form->input('name', array('readonly' => true));
+		echo $this->Form->input('username', array('readonly' => true));
+                echo $this->Form->input('password', array(
+                                                        'type' => 'password', 
+                                                        'value' => '', 
+                                                        'label' =>'Nova Senha'));
+                echo $this->Form->input('checkPassword', array(
+                                                            'label' => 'Repita o password',
+                                                            'value' => '',
+                                                            'type' => 'password'));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>
