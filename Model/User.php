@@ -83,7 +83,6 @@ class User extends AppModel {
         public function checaSeCampoIgual($data, $fieldname) {
             if (array_shift($data) === $this->data[$this->alias][$fieldname])
                 return true;
-           
         }
         
         
@@ -104,6 +103,22 @@ class User extends AppModel {
 			'order' => ''
 		)
 	);
+        
+        
+/**
+ * hasOne associations
+ *
+ * @var array
+ */
+	public $hasOne = array(
+		'Profile' => array(
+			'className' => 'Profile',
+			'foreignKey' => 'user_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);        
         
         public function beforeSave() {
             // Se o campo password não estiver vazio

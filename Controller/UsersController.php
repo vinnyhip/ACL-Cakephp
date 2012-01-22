@@ -20,7 +20,7 @@ class UsersController extends AppController {
         }
     
     
-    
+        //@TODO: Implantar registro do último login
         public function login() {
             
             if ($this->Session->read('Auth.User')) {
